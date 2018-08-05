@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NewClassForm = ({ newClass, handleChange, handleSubmit }) => {
+const NewClassForm = ({ newClass, message, handleChange, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -21,6 +21,7 @@ const NewClassForm = ({ newClass, handleChange, handleSubmit }) => {
         <input type="date" className="form-control" name="startingDate" value={newClass.startingDate} onChange={handleChange} />
       </div>
       <button type="submit" className="btn btn-primary">Add Class</button>
+      <p className="text-danger">{message}</p>
     </form>
   );
 };

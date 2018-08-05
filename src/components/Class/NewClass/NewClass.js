@@ -16,7 +16,8 @@ class NewClass extends Component {
         name: '',
         numberOfStudents: '',
         startingDate: ''
-      }
+      },
+      message: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,8 +37,15 @@ class NewClass extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.props.actions.addNewClass(this.state.newClass);
-    this.props.actions.addNewClassVisibility(false);
+    // check existence
+    const index = this.props.classList.findIndex(x => x.id === this.state.newClass.id);
+
+    if (index < 0) {
+      this.props.actions.addNewClass(this.state.newClass);
+      this.props.actions.addNewClassVisibility(false);
+    } else {
+      this.setState({message: "A class with the same Id is already exist."})
+    }
   }
 
   render() {
@@ -46,10 +54,17 @@ class NewClass extends Component {
         newClass={this.state.newClass}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        message={this.state.message}
       />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    classList: state.classEnrollment ? state.classEnrollment.classList : []
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -57,4 +72,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(NewClass);
+export default connect(mapStateToProps, mapDispatchToProps)(NewClass);
