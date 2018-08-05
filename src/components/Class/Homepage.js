@@ -2,8 +2,8 @@ import React from 'react';
 
 import './class.scss';
 
-import './Classes';
 import Classes from './Classes';
+import NewClass from './NewClass';
 
 const Homepage = () => {
   return (
@@ -17,7 +17,7 @@ const Homepage = () => {
             <Classes />
           </div>
           <div className="col-12 col-sm-4 home-right-pane">
-            One of three columns
+            <NewClass />
           </div>
         </div>
       </div>

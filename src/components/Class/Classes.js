@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,17 +10,6 @@ import ClassesList from './ClassesList';
 class Classes extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      classList: [
-        {
-          id: "CS201",
-          name: "Information Security",
-          startingDate: "12/12/2014",
-          numberOfStudents: 4
-        }
-      ]
-    };
   }
 
   componentDidMount() {
@@ -27,14 +17,18 @@ class Classes extends Component {
 
   render() {
     return (
-      <ClassesList list={this.state.classList} />
+      <ClassesList list={this.props.classList} />
     );
   }
+}
+
+Classes.prototype = {
+  classList: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
   return {
-    classList: state.classList
+    classList: state.classEnrollment ? state.classEnrollment.classList : []
   };
 };
 

@@ -1,7 +1,8 @@
 import * as types from './actionTypes';
 
-export function addClassSuccess() {
+export function addNewClass(newClass) {
   return {
-    type: types.NEW_CLASS
+    type: types.ADD_CLASS,
+    newClass
   };
 }
