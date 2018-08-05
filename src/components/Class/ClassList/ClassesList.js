@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuidv1 from 'uuid/v1';
 
-const ClassesList = ({ list = [] }) => {
+const ClassesList = ({ list = [], viewClass, deleteClass }) => {
   return (
     <table className="table table-bordered table-sm">
       <thead>
@@ -16,12 +17,16 @@ const ClassesList = ({ list = [] }) => {
       <tbody>
         {list.map((record) => {
           return (
-            <tr key={record.id}>
+            <tr key={uuidv1()}>
               <td>{record.id}</td>
               <td>{record.name}</td>
               <td>{record.startingDate}</td>
               <td>{record.numberOfStudents}</td>
-              <td></td>
+              <td>
+                <button type="button" className="btn btn-link" onClick={() => viewClass(record.id)}>View</button>
+                /
+                <button type="button" className="btn btn-link" onClick={() => deleteClass(record.id)}>Delete</button>
+              </td>
             </tr>
           );
         })}

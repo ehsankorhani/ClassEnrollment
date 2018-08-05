@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as classActions from './../../actions/classActions';
+import * as classActions from './../../../actions/classActions';
 
 import NewClassForm from './NewClassForm';
 
@@ -37,6 +37,7 @@ class NewClass extends Component {
     e.preventDefault();
 
     this.props.actions.addNewClass(this.state.newClass);
+    this.props.actions.addNewClassVisibility(false);
   }
 
   render() {

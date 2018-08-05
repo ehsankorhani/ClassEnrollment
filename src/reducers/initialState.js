@@ -1,5 +1,12 @@
 export default {
   classEnrollment: {
-    classList: []
+    visibleView: {
+      addNewClass: false,
+      addStudent: false,
+      students: false
+    },
+    classList: [],
+    studentList: [],
+    visibleClassId: ''
   }
 };
