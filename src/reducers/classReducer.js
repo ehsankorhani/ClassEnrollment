@@ -86,6 +86,24 @@ export default function classReducer(state = initialState, action) {
         classList: classList
       };
 
+    case types.REMOVE_STUDENT:
+      classList = [...state.classList];
+
+      const selectedClassIndex = classList.findIndex(x => x.id === action.classId);
+      const selectedClass = classList[selectedClassIndex];
+      const classStudentIds = selectedClass.studentIds;
+      const indexOfStudent = classStudentIds.indexOf(action.studentId);
+
+      if (indexOfStudent !== -1) classStudentIds.splice(index, 1);
+
+      selectedClass.studentIds = classStudentIds;
+      classList[selectedClassIndex] = selectedClass;
+
+      return {
+        ...state,
+        classList: classList
+      };
+
     default:
       return state;
   }

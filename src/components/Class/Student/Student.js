@@ -9,36 +9,20 @@ import StudentList from './StudentList';
 class Student extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      title: '',
-      studentList: []
-    };
 
     this.handleRemoveStudent = this.handleRemoveStudent.bind(this);
   }
 
-  handleRemoveStudent() {
-    // TODO: implement
+  handleRemoveStudent(studentId) {
+    this.props.actions.removeStudent(this.state.classId, studentId);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const visibleClass = nextProps.classList.find(x => x.id === nextProps.visibleClassId);
-
-    this.setState({title: visibleClass.id + ' ' + visibleClass.name});
-    const classStudent = visibleClass.studentIds || [];
-    const list = nextProps.studentList.filter(function(item) {
-      return classStudent.indexOf(item.id) > 0;
-    });
-
-    this.setState({studentList: list});
-  }
-
-  render() { 
+  render() {
     return (
       <div>
-        <h3>{this.state.title}</h3>
+        <h3>{this.props.visibleClass.id + ': ' + this.props.visibleClass.name}</h3>
         <StudentList
-          list={this.state.studentList}
+          list={this.props.list}
           remove={this.handleRemoveStudent}
         />
       </div>
@@ -47,10 +31,19 @@ class Student extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  let classEnrollment = state.classEnrollment ? state.classEnrollment : {};
+  const classList = classEnrollment.classList || [];
+  const visibleClassId = classEnrollment.visibleClassId || '';
+  const visibleClass = classList.find(x => x.id === visibleClassId);
+  const classStudent = visibleClass.studentIds || [];
+  const studentList = classEnrollment.studentList || [];
+  const list = studentList.filter(student => {
+    return classStudent.indexOf(student.id) !== -1;
+  });
+
   return {
-    classList: state.classEnrollment ? state.classEnrollment.classList : [],
-    studentList: state.classEnrollment ? state.classEnrollment.studentList : [],
-    visibleClassId: state.classEnrollment ? state.classEnrollment.visibleClassId : ''
+    visibleClass: visibleClass,
+    list: list
   };
 };
 

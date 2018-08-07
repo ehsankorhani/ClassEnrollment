@@ -80,3 +80,11 @@ export function deleteClass(classId) {
     classId
   };
 }
+
+export function removeStudent(classId, studentId) {
+  return {
+    type: types.REMOVE_STUDENT,
+    classId,
+    studentId
+  };
+}

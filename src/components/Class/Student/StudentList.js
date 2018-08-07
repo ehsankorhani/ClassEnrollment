@@ -20,7 +20,7 @@ const StudentList = ({list = [], remove}) => {
               <td>{record.name}</td>
               <td>{record.enrollmentDate}</td>
               <td>
-                <button type="button" className="btn btn-link" onClick={remove}>Remove</button>
+                <button type="button" className="btn btn-link" onClick={() => remove(record.id)}>Remove</button>
               </td>
             </tr>
           );
